@@ -6,10 +6,64 @@
 - BTT U2C
 - BTT EBB36
 
-### Fix Mainsail OS Locale
+### Initial setup
 
+Become root
+```bash
+sudo su -
 ```
-sudo wget 'https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/locale.config' -O '/etc/default/locale'
+
+Update Pi user so that password is not required to sudo
+```bash
+vi /etc/sudoers.d/010_pi-nopasswd
+```
+
+Update APT sources
+```bash
+vi /etc/apt/sources.list
+```
+
+Update apt sources to use local server, comment old server
+```
+# deb http://raspbian.raspberrypi.org/raspbian/ bullseye main contrib non-free rpi
+deb http://raspbian.mirror.ac.za/raspbian/ bullseye main contrib non-free rpi
+```
+
+Update
+```bash
+apt clean all
+apt update -y
+apt dist-upgrade -y
+```
+
+Better editor
+```bash
+apt install vim
+select-editor
+apt purge nano
+```
+
+Update NTP server
+```bash
+vi /etc/systemd/timesyncd.conf
+```
+
+Update locale using `sudo raspi-config` to `en_US.UTF-8` then run
+```bash
+vi /etc/default/locale
+```
+
+Paste:
+```conf
+LANGUAGE=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+LANG=en_US.UTF-8
+LC_CTYPE=en_US.UTF-8
+```
+
+Reboot
+```bash
+reboot now
 ```
 
 ### Flash candlelight_FW
@@ -69,7 +123,7 @@ make flash KCONFIG_CONFIG=config.rpi
 ![Klipper Octopus Menuconfig](https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/klipper_mcu.png)
 
 ```bash
-sudo wget '' -O '/etc/systemd/system/klipper-mcu.service'
+sudo wget 'https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/klipper-mcu.service' -O '/etc/systemd/system/klipper-mcu.service'
 sudo systemctl enable klipper-mcu.service
 sudo service klipper-mcu start
 ```
@@ -115,5 +169,5 @@ rm ~/printer_data/config/mainsail.cfg
 
 Update klipper environment to use klippy.conf
 ```bash
-wget 'https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/klipper.env' -O '/home/pi/printer_data/systemd/klipper.env'
+vi ~/printer_data/systemd/klipper.env
 ```
