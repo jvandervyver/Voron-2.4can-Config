@@ -99,12 +99,21 @@ make menuconfig KCONFIG_CONFIG=config.ebb_36
 ```bash
 cd ~
 git clone https://github.com/jvandervyver/Voron-2.4can-Config.git
-cd ~/printer_data/config
-ln -s /home/pi/Voron-2.4can-Config/config/klippy.cfg /home/pi/printer_data/config/klippy.cfg
-ln -s /home/pi/Voron-2.4can-Config/config/printer /home/pi/printer_data/config/printer
+
+ln -s ~/Voron-2.4can-Config/config/klippy.conf ~/printer_data/config/klippy.conf
+ln -s ~/Voron-2.4can-Config/config/printer ~/printer_data/config/printer
+
+mkdir ~/printer_data/config/macros
+ln -s ~/moonraker-timelapse/klipper_macro ~/printer_data/config/macros/timelapse
+
+mkdir ~/printer_data/config/macros/mainsail
+ln -s ~/mainsail-config/mainsail.cfg ~/printer_data/config/macros/mainsail/mainsail.cfg
+
+rm ~/printer_data/config/timelapse.cfg
+rm ~/printer_data/config/mainsail.cfg
 ```
 
-Update klipper environment to use klippy.cfg
+Update klipper environment to use klippy.conf
 ```bash
 wget 'https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/klipper.env' -O '/home/pi/printer_data/systemd/klipper.env'
 ```
