@@ -94,3 +94,17 @@ make menuconfig KCONFIG_CONFIG=config.ebb_36
 
 ![Klipper Octopus Menuconfig](https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/klipper_ebb36.png)
 
+### Install config
+
+```bash
+cd ~
+git clone https://github.com/jvandervyver/Voron-2.4can-Config.git
+cd ~/printer_data/config
+ln -s /home/pi/Voron-2.4can-Config/config/klippy.cfg /home/pi/printer_data/config/klippy.cfg
+ln -s /home/pi/Voron-2.4can-Config/config/printer /home/pi/printer_data/config/printer
+```
+
+Update klipper environment to use klippy.cfg
+```bash
+wget 'https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/klipper.env' -O '/home/pi/printer_data/systemd/klipper.env'
+```
