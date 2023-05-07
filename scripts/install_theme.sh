@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-THEME_DIRECTORY="${home}/printer_data/config/.theme"
+THEME_DIRECTORY="${HOME}/printer_data/config/.theme"
 
 mkdir "${THEME_DIRECTORY}"
 
