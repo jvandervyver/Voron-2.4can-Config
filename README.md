@@ -171,3 +171,47 @@ Update klipper environment to use klippy.conf
 ```bash
 vi ~/printer_data/systemd/klipper.env
 ```
+
+### Webcam using WebRTC
+
+In order to get WebRTC working as-of 7 May 2023 you need to switch over to the develop branch of `crowsnest`.
+
+```bash
+cd ~/crowsnest
+sudo make uninstall
+# Reboot
+
+git reset --hard
+git checkout develop
+git branch --set-upstream-to=origin/develop develop
+git pull
+git reset --hard
+make install
+```
+
+```bash
+sudo vi /boot/config.txt
+```
+
+There may be multiple entries containing `camera_auto_detect`.
+Remove all but one and set it to `camera_auto_detect=1`.
+This is required to load the overlays for cameras.
+
+`crownest.conf` is going to be updated, but for the Raspberry Pi v2 camera the following works well:
+
+```conf
+[cam 1]
+mode: camera-streamer                      # ustreamer - Provides mjpg and snapshots. (All devices)
+enable_rtsp: false                         # If camera-streamer is used, this enables also usage of an rtsp server
+rtsp_port: 8554                            # Set different ports for each device!
+port: 8080                                 # HTTP/MJPG Stream/Snapshot Port
+device: /base/soc/i2c0mux/i2c@1/imx219@10  # See Log for available ...
+resolution: 1280x720                       # widthxheight format
+max_fps: 30                                # If Hardware Supports this it will be forced, otherwise ignored/coerced.
+```
+
+If it doesn't work, try debugging using `log_level: debug` which will contain the camera-streamer logs
+
+Next setup mainsail use WebRTC:
+
+![Webcam setup](https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/downloads/webcam_setup.png)
