@@ -172,6 +172,12 @@ Update klipper environment to use klippy.conf
 vi ~/printer_data/systemd/klipper.env
 ```
 
+### Install Voron theme
+
+```bash
+curl 'https://raw.githubusercontent.com/jvandervyver/Voron-2.4can-Config/main/scripts/install_theme.sh' | bash
+```
+
 ### Webcam using WebRTC
 
 In order to get WebRTC working as-of 7 May 2023 you need to switch over to the develop branch of `crowsnest`.
